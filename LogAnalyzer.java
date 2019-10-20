@@ -43,6 +43,9 @@ public class LogAnalyzer
             hourCounts[hour]++;
         }
     }
+    /**
+     * @returns hour counts for each element in the array 
+     */
     public int numberOfAccesses ()
     {
         int total = 0; 
@@ -72,5 +75,20 @@ public class LogAnalyzer
     public void printData()
     {
         reader.printData();
+    }
+    /**
+     * busyiest single hour 
+     * @return 
+     */
+    public void buisiestHour ()
+    {
+        int busy =0;
+        for (int a : hourCounts)
+        {
+            if (busy < hourCounts[a])
+            {
+                busy = hourCounts[a];
+            }
+        }
     }
 }
