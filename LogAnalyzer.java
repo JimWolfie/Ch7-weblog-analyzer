@@ -77,8 +77,8 @@ public class LogAnalyzer
         reader.printData();
     }
     /**
-     * busyiest single hour 
-     * @return 
+     * index of the most recent busiest single hour 
+     * @return index
      */
     public int buisiestHour ()
     {
@@ -86,15 +86,31 @@ public class LogAnalyzer
         int index=0;
         for (int a : hourCounts)
         {
-            if (busy < hourCounts[a])
+            if (busy <= hourCounts[a])
             {
                 busy = hourCounts[a];
                 index = a;
             }
         }
+        return index;
     }
-    
-    public void quietestHour()
+    /**
+     * gives back the most recent quitest hour 
+     * @return index
+     */
+    public int quietestHour()
     {
+        int quiet = hourCounts[0];
+        int index = 0;
+        for (int a : hourCounts)
+        {
+            if (quiet >= hourCounts[a])
+            {
+                quiet = hourCounts[a];
+                index = a;
+            }
+        }
+        return index;
     }
+    /**
 }
