@@ -113,4 +113,29 @@ public class LogAnalyzer
         return index;
     }
     /**
+     * busiest 2 hour period
+     * @return index of starting hour of two hour period
+     */
+    public int twoHourIndex()
+    {
+        int index =0;
+        //handle special case of 11p,
+        int twoHour = 0;
+        int specialCase = hourCounts[23]+hourCounts[0];
+        for (int a =0; a < hourCounts.length -1;a++ )
+        {
+            
+            if (twoHour <= hourCounts[a] + hourCounts[a+1])
+            {
+                twoHour = hourCounts[a];
+                index = a;
+            }
+        }
+        if (twoHour <= specialCase)
+        {
+            index = 23;
+        } 
+        return index;
+    }
+    
 }
