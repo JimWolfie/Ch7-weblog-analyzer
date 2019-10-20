@@ -80,15 +80,21 @@ public class LogAnalyzer
      * busyiest single hour 
      * @return 
      */
-    public void buisiestHour ()
+    public int buisiestHour ()
     {
         int busy =0;
+        int index=0;
         for (int a : hourCounts)
         {
             if (busy < hourCounts[a])
             {
                 busy = hourCounts[a];
+                index = a;
             }
         }
+    }
+    
+    public void quietestHour()
+    {
     }
 }
