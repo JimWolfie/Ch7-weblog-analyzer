@@ -183,6 +183,10 @@ public class LogAnalyzer
         } 
         return index;
     }
+    /**
+     * busiest 2 hour period
+     * @return index of starting hour of two hour period
+     */
     public int quietestDay()
     {
          int quiet = dayCounts[0];
@@ -198,6 +202,10 @@ public class LogAnalyzer
         return index;
    
     }
+    /**
+     * busiest 2 hour period
+     * @return index of starting hour of two hour period
+     */
     public int busiestDay()
     {
         int busy =0;
@@ -212,6 +220,10 @@ public class LogAnalyzer
         }
         return index;
     }
+    /**
+     * busiest 2 hour period
+     * @return index of starting hour of two hour period
+     */
     public int totalAccessesPerMonth()
     {
          int total = 0; 
@@ -221,6 +233,10 @@ public class LogAnalyzer
         }
         return total;
     }
+    /**
+     * busiest 2 hour period
+     * @return index of starting hour of two hour period
+     */
     public int quietestMonth()
     {
         
@@ -236,6 +252,10 @@ public class LogAnalyzer
         }
         return index;
     }
+    /**
+     * busiest 2 hour period
+     * @return index of starting hour of two hour period
+     */
     public int busiestMonth()
     {
         int busy =0;
@@ -250,10 +270,18 @@ public class LogAnalyzer
         }
         return index;
     }
+    /**
+     * busiest 2 hour period
+     * @return index of starting hour of two hour period
+     */
     public int averageAcccessesPerMonth()
     {
-        return 0;
+        return totalAccessesPerMonth() / 12; 
     }
+    /**
+     * busiest 2 hour period
+     * @return index of starting hour of two hour period
+     */
     public void printTrends(){}
   
 }
