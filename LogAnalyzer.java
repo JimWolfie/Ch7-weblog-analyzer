@@ -24,10 +24,10 @@ public class LogAnalyzer
         // Create the array object to hold the hourly
         // access counts.
         hourCounts = new int[24];
-        dayCounts = new int[31];
+        dayCounts = new int[28];
         monthCounts = new int[12];
-        yearCounts = new int[21];
-        monthYear = new int[10][31];
+        yearCounts = new int[10];
+        monthYear = new int[10][28];
         // Create the reader to obtain the data.
         reader = new LogfileReader();
     }
@@ -39,10 +39,10 @@ public class LogAnalyzer
     public LogAnalyzer(String fileName)
     {
         hourCounts = new int[24];
-        dayCounts = new int[31];
+        dayCounts = new int[28];
         monthCounts = new int[12];
         yearCounts = new int[10];
-        monthYear = new int[10][31];
+        monthYear = new int[10][28];
         reader = new LogfileReader(fileName);
     }
     /**
@@ -50,10 +50,11 @@ public class LogAnalyzer
      */
     public void analyzeHourlyData()
     {
+        reader.reset();
         while(reader.hasNext()) {
             LogEntry entry = reader.next();
             int hour = entry.getHour();
-            hourCounts[hour]++;
+            hourCounts[hour] =hourCounts[hour] +1 ;
         }
     }
     /**
@@ -61,10 +62,11 @@ public class LogAnalyzer
      */
     public void analyzeDailyData()
     {
+        reader.reset();
         while(reader.hasNext()) {
             LogEntry entry = reader.next();
             int day = entry.getDay();
-            dayCounts[day]++;
+            dayCounts[day]= dayCounts[day]+1;
         }
     }
     /**
@@ -72,11 +74,12 @@ public class LogAnalyzer
      */
     public void analyzeMonthlyData()
     {
+        reader.reset();
         while(reader.hasNext())
         {
           LogEntry entry = reader.next();
           int month = entry.getMonth();
-          monthCounts[month]++;
+          monthCounts[month]=monthCounts[month]+1;
         }
     }
     /**
@@ -84,22 +87,26 @@ public class LogAnalyzer
      */
     public void analyzeYearlyData()
     {
-        LogEntry entry = reader.next();
+        reader.reset();
+        while(reader.hasNext()){
+          LogEntry entry = reader.next();
           int year = entry.getYear();
           yearCounts[year%10]++;
+        }
     }
     /**
      * Analyze the month and year data from the log file
      */
     public void analyzeMontYearData()
     {
+        reader.reset();
         while(reader.hasNext())
         {
           LogEntry entry = reader.next();
           int year = entry.getYear();
           int month = entry.getMonth();
           int index = year %10;
-          monthYear[index][month]++;
+          monthYear[index][month] +=1;
         }
     }
     /**
@@ -107,6 +114,7 @@ public class LogAnalyzer
      */
     public void analyzeAll()
     {
+        reader.reset();
         analyzeYearlyData();
         analyzeMonthlyData();
         analyzeDailyData();
@@ -309,7 +317,7 @@ public class LogAnalyzer
         System.out.println("Year: Month");
         for (int a =0; a<10; a++)
         { 
-            for (int b =0; b<31; b++)
+            for (int b =0; b<28; b++)
             {
                 System.out.println(""+ monthYear[a][b]);
                 
