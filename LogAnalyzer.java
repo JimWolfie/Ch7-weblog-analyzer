@@ -8,6 +8,9 @@ public class LogAnalyzer
 {
     // Where to calculate the hourly access counts.
     private int[] hourCounts;
+    private int[] dayCounts;
+    private int[] monthCounts;
+    private int[] yearCounts;
     // Use a LogfileReader to access the data.
     private LogfileReader reader;
 
@@ -19,12 +22,15 @@ public class LogAnalyzer
         // Create the array object to hold the hourly
         // access counts.
         hourCounts = new int[24];
+        dayCounts = new int[31];
+        monthCounts = new int[12];
+        yearCounts = new int[21];
         // Create the reader to obtain the data.
         reader = new LogfileReader();
     }
 
     /**
-     * Create an object to analyze hourly web accesses based off filename
+     * Create an object to analyze all web accesses based off filename
      * @param fileName - file to analyze given as string. 
      */
     public LogAnalyzer(String fileName)
@@ -42,6 +48,35 @@ public class LogAnalyzer
             int hour = entry.getHour();
             hourCounts[hour]++;
         }
+    }
+    /**
+     * Analyze the daily data from the log file
+     */
+    public void analyzeDailyData()
+    {
+        while(reader.hasNext()) {
+            LogEntry entry = reader.next();
+            int day = entry.getDay();
+            dayCounts[day]++;
+        }
+    }
+    /**
+     * Analyze the monthly data from the log file
+     */
+    public void analyzeMonthlyData()
+    {
+        while(reader.hasNext())
+        {
+          LogEntry entry = reader.next();
+          int month = entry.getMonth();
+          monthCounts[month]++;
+        }
+    }
+    public void analyzeYearlyData()
+    {
+        LogEntry entry = reader.next();
+          int year = entry.getYear();
+          yearCounts[year]++;
     }
     /**
      * @returns hour counts for each element in the array 
