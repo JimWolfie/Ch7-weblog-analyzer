@@ -65,5 +65,45 @@ public class LogfileCreator
         int minute = rand.nextInt(60);
         return new LogEntry(year, month, day, hour, minute);
     }
+  /**
+     * Create a file of random log entries.
+     * @param filename The file to write.
+     * @param numEntries How many entries per year.
+     * @param numYears how many times to repeat
+     * @return true if successful, false otherwise.
+     */
+    public boolean createFile(String filename, int numEntries, int numYears)
+    {
+        boolean success = false;
+        
+        if(numEntries > 0&& numYears>0 && numYears <=10 ) {
+            try (FileWriter writer = new FileWriter(filename)) {
+                LogEntry[][] entries = new LogEntry[numYears][numEntries];
+                for (int j= 0; j < numYears; j++)
+                {
+                    for(int i = 0; i < numEntries; i++) 
+                    {
+                        entries[j][i] = createEntry();
+                    }
+                }
+                Arrays.sort(entries);
+                for (int j= 0; j < numYears; j++)
+                {
+                   for(int i = 0; i < numEntries; i++) {
+                    writer.write(entries[j][i].toString());
+                    writer.write('\n');
+                } 
+                }
+                
+                
+                success = true;
+            }
+            catch(IOException e) {
+                System.err.println("There was a problem writing to " + filename);
+            }
+                
+        }
+        return success;
+    }
 
 }
