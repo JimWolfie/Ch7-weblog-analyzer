@@ -200,19 +200,55 @@ public class LogAnalyzer
     }
     public int busiestDay()
     {
-        return 0;
+        int busy =0;
+        int index=0;
+        for (int a : dayCounts)
+        {
+            if (busy <= dayCounts[a])
+            {
+                busy = dayCounts[a];
+                index = a;
+            }
+        }
+        return index;
     }
     public int totalAccessesPerMonth()
     {
-        return 0;
+         int total = 0; 
+        for ( int a : monthCounts)
+        {
+            total += a;
+        }
+        return total;
     }
     public int quietestMonth()
     {
-        return 0;
+        
+         int quiet = monthCounts[0];
+        int index = 0;
+        for (int a : monthCounts)
+        {
+            if (quiet >= monthCounts[a])
+            {
+                quiet = monthCounts[a];
+                index = a;
+            }
+        }
+        return index;
     }
     public int busiestMonth()
     {
-        return 0;
+        int busy =0;
+        int index=0;
+        for (int a : monthCounts)
+        {
+            if (busy <= monthCounts[a])
+            {
+                busy = monthCounts[a];
+                index = a;
+            }
+        }
+        return index;
     }
     public int averageAcccessesPerMonth()
     {
