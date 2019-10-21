@@ -6,6 +6,8 @@ import java.util.*;
  * 
  * @author David J. Barnes and Michael Kölling
  * @version    2016.02.29
+ * @author Nicholas Lindgren
+ * @version 20/21/2019
  */
 public class LogfileCreator
 {

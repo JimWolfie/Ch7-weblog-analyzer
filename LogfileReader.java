@@ -17,7 +17,9 @@ import java.util.Scanner;
  * Log entries are sorted into ascending order of date.
  * 
  * @author David J. Barnes and Michael Kölling.
- * @version    2016.02.29
+ * @version    2016.02.2
+ * * @author Nicholas Lindgren
+ * @version 20/21/2019
  */
 public class LogfileReader implements Iterator<LogEntry>
 {
