@@ -12,6 +12,7 @@ public class LogAnalyzer
     private int[] dayCounts;
     private int[] monthCounts;
     private int[] yearCounts;
+    private int[][] monthYear;
     // Use a LogfileReader to access the data.
     private LogfileReader reader;
 
@@ -26,6 +27,7 @@ public class LogAnalyzer
         dayCounts = new int[31];
         monthCounts = new int[12];
         yearCounts = new int[21];
+        monthYear = new int[10][31];
         // Create the reader to obtain the data.
         reader = new LogfileReader();
     }
@@ -40,6 +42,7 @@ public class LogAnalyzer
         dayCounts = new int[31];
         monthCounts = new int[12];
         yearCounts = new int[21];
+        monthYear = new int[10][31];
         reader = new LogfileReader(fileName);
     }
     /**
@@ -76,18 +79,39 @@ public class LogAnalyzer
           monthCounts[month]++;
         }
     }
+    /**
+     * Analyze the yearly data from the log file
+     */
     public void analyzeYearlyData()
     {
         LogEntry entry = reader.next();
           int year = entry.getYear();
           yearCounts[year]++;
     }
+    /**
+     * Analyze the month and year data from the log file
+     */
+    public void analyzeMontYearData()
+    {
+        while(reader.hasNext())
+        {
+          LogEntry entry = reader.next();
+          int year = entry.getYear();
+          int month = entry.getMonth();
+          int index = year %10;
+          monthYear[index][month]++;
+        }
+    }
+    /**
+     * Analyze all data from the log file
+     */
     public void analyzeAll()
     {
         analyzeYearlyData();
         analyzeMonthlyData();
         analyzeDailyData();
         analyzeHourlyData();
+        analyzeMontYearData()
     }
     /**
      * @returns hour counts for each element in the array 
@@ -184,8 +208,8 @@ public class LogAnalyzer
         return index;
     }
     /**
-     * busiest 2 hour period
-     * @return index of starting hour of two hour period
+     * quietest day
+     * @return index of quietest day
      */
     public int quietestDay()
     {
@@ -203,8 +227,8 @@ public class LogAnalyzer
    
     }
     /**
-     * busiest 2 hour period
-     * @return index of starting hour of two hour period
+     * busiest day
+     * @return index of busiest day
      */
     public int busiestDay()
     {
@@ -221,16 +245,14 @@ public class LogAnalyzer
         return index;
     }
     /**
-     * busiest 2 hour period
-     * @return index of starting hour of two hour period
+     * total access for month
+     * @param month - specified month 
+     * @return number of access at given index
      */
-    public int totalAccessesPerMonth()
+    public int totalAccessesPerMonth(int month)
     {
-         int total = 0; 
-        for ( int a : monthCounts)
-        {
-            total += a;
-        }
+         int total = monthCount[month];
+        
         return total;
     }
     /**
@@ -253,8 +275,8 @@ public class LogAnalyzer
         return index;
     }
     /**
-     * busiest 2 hour period
-     * @return index of starting hour of two hour period
+     * busiest month
+     * @return index of buisest month
      */
     public int busiestMonth()
     {
@@ -276,12 +298,19 @@ public class LogAnalyzer
      */
     public int averageAcccessesPerMonth()
     {
-        return totalAccessesPerMonth() / 12; 
+        return numberOfAccesses() / 12; 
     }
     /**
-     * busiest 2 hour period
+     * prints the values at a given int array
      * @return index of starting hour of two hour period
      */
-    public void printTrends(){}
+    public void printTrend(int[] feed)
+    {
+        
+        int[] feeder = feed; 
+        for(int f = 0; f < feeder.length;f++) {
+            System.out.println(f + ": " + feeder[f]);
+        }
+    }
   
 }
