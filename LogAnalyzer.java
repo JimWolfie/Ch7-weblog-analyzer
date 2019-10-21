@@ -137,5 +137,12 @@ public class LogAnalyzer
         } 
         return index;
     }
-    
+    public int quietestDay(){return 0;}
+    public int busiestDay(){return 0;}
+    public int totalAccessesPerMonth(){return 0;}
+    public int quietestMonth(){return 0;}
+    public int busiestMonth(){return 0;}
+    public int averageAcccessesPerMonth(){return 0;}
+    public void printTrends(){}
+  
 }
