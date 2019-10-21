@@ -65,6 +65,23 @@ public class LogfileCreator
         int minute = rand.nextInt(60);
         return new LogEntry(year, month, day, hour, minute);
     }
+    /**
+     * Create a single (random) entry for a log file.
+     * @param yearMin
+     * @param yearMax
+     * @return A log entry containing random data.
+     */
+    private LogEntry createEntry(int yearMin, int yearMax)
+    {
+      
+        int year = rand.nextInt(yearMax - yearMin) +yearMin;// 2009inclusive - 2019 exclusive
+        int month = 1 + rand.nextInt(12);
+        // Avoid the complexities of days-per-month.
+        int day = 1 + rand.nextInt(28);
+        int hour = rand.nextInt(24);
+        int minute = rand.nextInt(60);
+        return new LogEntry(year, month, day, hour, minute);
+    }
   /**
      * Create a file of random log entries.
      * @param filename The file to write.
@@ -72,10 +89,10 @@ public class LogfileCreator
      * @param numYears how many times to repeat
      * @return true if successful, false otherwise.
      */
-    public boolean createFile(String filename, int numEntries, int numYears)
+    public boolean createFile(String filename, int numEntries, int yearMin, int yearMax)
     {
         boolean success = false;
-        
+        int numYears = yearMax - yearMin;
         if(numEntries > 0&& numYears>0 && numYears <=10 ) {
             try (FileWriter writer = new FileWriter(filename)) {
                 LogEntry[][] entries = new LogEntry[numYears][numEntries];
@@ -83,7 +100,7 @@ public class LogfileCreator
                 {
                     for(int i = 0; i < numEntries; i++) 
                     {
-                        entries[j][i] = createEntry();
+                        entries[j][i] = createEntry(yearMin, yearMax);
                     }
                 }
                 Arrays.sort(entries);
