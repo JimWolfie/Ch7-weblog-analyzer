@@ -4,6 +4,7 @@
  * @author David J. Barnes and Michael Kölling.
  * @version    2016.02.29
  */
+import java.util.ArrayList;
 public class LogAnalyzer
 {
     // Where to calculate the hourly access counts.
@@ -36,6 +37,9 @@ public class LogAnalyzer
     public LogAnalyzer(String fileName)
     {
         hourCounts = new int[24];
+        dayCounts = new int[31];
+        monthCounts = new int[12];
+        yearCounts = new int[21];
         reader = new LogfileReader(fileName);
     }
     /**
@@ -77,6 +81,13 @@ public class LogAnalyzer
         LogEntry entry = reader.next();
           int year = entry.getYear();
           yearCounts[year]++;
+    }
+    public void analyzeAll()
+    {
+        analyzeYearlyData();
+        analyzeMonthlyData();
+        analyzeDailyData();
+        analyzeHourlyData();
     }
     /**
      * @returns hour counts for each element in the array 
