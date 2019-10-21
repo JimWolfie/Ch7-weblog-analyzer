@@ -85,7 +85,8 @@ public class LogfileCreator
   /**
      * Create a file of random log entries.
      * @param filename The file to write.
-     * @param numEntries How many entries per year.
+     * @param yearMin the min year to evaluate
+     * @param yearMax the max year to evaluate
      * @param numYears how many times to repeat
      * @return true if successful, false otherwise.
      */
@@ -95,22 +96,20 @@ public class LogfileCreator
         int numYears = yearMax - yearMin;
         if(numEntries > 0&& numYears>0 && numYears <=10 ) {
             try (FileWriter writer = new FileWriter(filename)) {
-                LogEntry[][] entries = new LogEntry[numYears][numEntries];
-                for (int j= 0; j < numYears; j++)
-                {
-                    for(int i = 0; i < numEntries; i++) 
+                LogEntry[] entries = new LogEntry[numEntries*numYears];
+                
+                    for(int i = 0; i < numEntries*numYears; i++) 
                     {
-                        entries[j][i] = createEntry(yearMin, yearMax);
+                        entries[i] = createEntry(yearMin, yearMax);
                     }
-                }
+                
                 Arrays.sort(entries);
-                for (int j= 0; j < numYears; j++)
-                {
+                
                    for(int i = 0; i < numEntries; i++) {
-                    writer.write(entries[j][i].toString());
+                    writer.write(entries[i].toString());
                     writer.write('\n');
                 } 
-                }
+                
                 
                 
                 success = true;

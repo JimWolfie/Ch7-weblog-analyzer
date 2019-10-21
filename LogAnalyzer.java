@@ -41,7 +41,7 @@ public class LogAnalyzer
         hourCounts = new int[24];
         dayCounts = new int[31];
         monthCounts = new int[12];
-        yearCounts = new int[21];
+        yearCounts = new int[10];
         monthYear = new int[10][31];
         reader = new LogfileReader(fileName);
     }
@@ -86,7 +86,7 @@ public class LogAnalyzer
     {
         LogEntry entry = reader.next();
           int year = entry.getYear();
-          yearCounts[year]++;
+          yearCounts[year%10]++;
     }
     /**
      * Analyze the month and year data from the log file
